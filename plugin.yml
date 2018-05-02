@@ -1,0 +1,11 @@
+main: com.paperbenni.setup.Setup
+load: POSTWORLD
+version: 1.0
+name: mineglory_plugin
+author: paperbenni
+description: this is just a test plugin
+commands:
+  hello:
+    description: sends a hello message which is beautiful
+  equip:
+    description: sends a goodbye message which is beautiful
