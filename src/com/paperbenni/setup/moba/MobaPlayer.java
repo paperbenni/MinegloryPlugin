@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 
 public class MobaPlayer {
-	private static HashMap<Player, Boolean> teams = new HashMap<Player, Boolean>();
 	private static HashMap<Player, Integer> gold = new HashMap<Player, Integer>();
 
 	public static ArrayList<Player> orangeplayers = new ArrayList<Player>();
@@ -24,11 +23,5 @@ public class MobaPlayer {
 		return gold.get(player);
 	}
 	
-	public static void setTeam(Player player, Boolean team) {
-		teams.put(player, team);
-	}
-	public static Boolean getTeam(Player player) {
-		return teams.get(player);
-	}
 	
 }

@@ -19,7 +19,7 @@ public class PlayerHitEvent implements Listener {
 		Player victim = (Player) en;
 		Player damager = (Player) dmg;
 
-		if(MobaTeam.getTeam(victim) == MobaTeam.getTeam(damager)) {
+		if((MobaTeam.Orange.hasPlayer(victim) && MobaTeam.Orange.hasPlayer(damager)) || (MobaTeam.Blue.hasPlayer(victim) && MobaTeam.Blue.hasPlayer(damager))) {
 			event.setCancelled(true);
 			dmg.sendMessage("You can't hit your teammate");
 		}

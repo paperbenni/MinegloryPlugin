@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.paperbenni.setup.commands.Equip;
 import com.paperbenni.setup.commands.Hello;
+import com.paperbenni.setup.commands.TeamCommands;
 import com.paperbenni.setup.event.block.BlockBreak;
 import com.paperbenni.setup.event.block.BlockPlace;
 import com.paperbenni.setup.event.inventory.InventoryClick;
@@ -35,6 +36,7 @@ public class Setup extends JavaPlugin{
 	private void registerCommands() {
 		getCommand("hello").setExecutor(new Hello(this));
 		getCommand("equip").setExecutor(new Equip());
+		getCommand("mobateam").setExecutor(new TeamCommands());
 	}
 	
 	private void registerEvents() {

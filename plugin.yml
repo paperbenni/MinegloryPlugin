@@ -9,3 +9,5 @@ commands:
     description: sends a hello message which is beautiful
   equip:
     description: sends a goodbye message which is beautiful
+  mobateam:
+    description: sends a player to another team
