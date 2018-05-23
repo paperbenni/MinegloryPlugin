@@ -11,3 +11,9 @@ commands:
     description: sends a goodbye message which is beautiful
   mobateam:
     description: sends a player to another team
+  gold:
+    description: allows you to modify the gold balances of players
+  mhelp: 
+    description: a help command for mineglory
+  minion: 
+    description: minion commands

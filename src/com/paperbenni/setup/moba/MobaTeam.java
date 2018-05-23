@@ -2,12 +2,13 @@ package com.paperbenni.setup.moba;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class MobaTeam {
-
+	
 	public static class Orange {
 
 		private static ArrayList<Player> list= new ArrayList<Player>();
@@ -19,6 +20,7 @@ public class MobaTeam {
 		
 		public static void addPlayer(Player player) {
 			list.add(player);
+			Bukkit.getServer().broadcastMessage(ChatColor.RED + player.getName() + ChatColor.GRAY + " has joined the orange team!");
 		}
 		
 		public static void removePlayer(Player player) {
@@ -34,6 +36,9 @@ public class MobaTeam {
 		}
 		public static Integer getMinionPoints() {
 			return minionpoints;
+		}
+		public static void setMinionPoints(Integer amount) {
+			minionpoints=amount;
 		}
 		
 		public static Boolean hasPlayer(Player player) {
@@ -58,6 +63,7 @@ public class MobaTeam {
 		
 		public static void addPlayer(Player player) {
 			list.add(player);
+			Bukkit.getServer().broadcastMessage(ChatColor.BLUE + player.getName() + ChatColor.GRAY + " has joined the blue team!");
 		}
 		
 		public static void removePlayer(Player player) {
@@ -74,6 +80,9 @@ public class MobaTeam {
 		}
 		public static Integer getMinionPoints() {
 			return minionpoints;
+		}
+		public static void setMinionPoints(Integer amount) {
+			minionpoints=amount;
 		}
 		public static Boolean hasPlayer(Player player) {
 			if(list.contains(player)) {

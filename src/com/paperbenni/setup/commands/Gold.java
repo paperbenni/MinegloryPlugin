@@ -17,8 +17,14 @@ public class Gold implements CommandExecutor {
 			sender.sendMessage("Only players can have gold, sorry");
 			return false;
 		}
+		
 		Player send = (Player) sender;
-
+		
+		if (!(send.isOp())) {
+			send.sendMessage(ChatColor.GRAY + "You don't have permission to do that!");
+			return false;
+		}
+		
 		if (args.length == 0) {
 			Player player = (Player) sender;
 			sender.sendMessage(ChatColor.YELLOW + "Gold: " + MobaPlayer.getGold(player));
@@ -31,7 +37,7 @@ public class Gold implements CommandExecutor {
 			sender.sendMessage(ChatColor.GREEN + "Gold: " + MobaPlayer.getGold(target));
 			return true;
 		}
-		
+
 		if (args[0].equalsIgnoreCase("set")) {
 			Player target = Bukkit.getPlayer(args[1]);
 			Integer amount = 0;
@@ -39,8 +45,8 @@ public class Gold implements CommandExecutor {
 			if (target == null) {
 
 				try {
-					amount = Integer.parseInt(args[2]);
-					MobaPlayer.addGold(send, amount - MobaPlayer.getGold(send));
+					amount = Integer.parseInt(args[1]);
+					MobaPlayer.setGold(send, amount);
 					sender.sendMessage("Set to " + amount + " gold");
 					return true;
 				} catch (NumberFormatException e) {
@@ -49,28 +55,28 @@ public class Gold implements CommandExecutor {
 				}
 
 			} else {
-
 				try {
-					amount = Integer.parseInt(args[3]);
+					amount = Integer.parseInt(args[2]);
+					MobaPlayer.setGold(target, amount);
+					sender.sendMessage(ChatColor.GREEN + "Gold Balance of " + args[1] + " has been set to " + amount);
+					target.sendMessage(ChatColor.GOLD + "Your gold balance has been set to " + amount);
 				} catch (NumberFormatException e) {
 					sender.sendMessage("Please put in a number!");
 					return false;
 				}
-				
-				MobaPlayer.addGold(target, amount - MobaPlayer.getGold(target));
-				sender.sendMessage(ChatColor.GREEN + "Gold Balance of " + args[1] + " has been set to " + amount);
-				target.sendMessage(ChatColor.GOLD + "Your gold balance has been set to " + amount);
+
 			}
 		}
 
-		if (args[0].equalsIgnoreCase("get")) {
+		if (args[0].equalsIgnoreCase("give")) {
+			
 			Player target = Bukkit.getPlayer(args[1]);
 			Integer amount = 0;
 
 			if (target == null) {
 
 				try {
-					amount = Integer.parseInt(args[2]);
+					amount = Integer.parseInt(args[1]);
 					MobaPlayer.addGold(send, amount);
 					sender.sendMessage("Given " + amount + " gold");
 					return true;
@@ -82,7 +88,7 @@ public class Gold implements CommandExecutor {
 			} else {
 
 				try {
-					amount = Integer.parseInt(args[3]);
+					amount = Integer.parseInt(args[2]);
 				} catch (NumberFormatException e) {
 					sender.sendMessage("Please put in a number!");
 					return false;
@@ -93,7 +99,7 @@ public class Gold implements CommandExecutor {
 				return true;
 			}
 		}
-		
+
 		return false;
 
 	}

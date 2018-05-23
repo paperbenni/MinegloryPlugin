@@ -14,12 +14,13 @@ public class PlayerHitEvent implements Listener {
 		Entity en = event.getEntity();
 		Entity dmg = event.getDamager();
 		if (!(en instanceof Player) || !(dmg instanceof Player)) {
+			dmg.sendMessage("test");
 			return;
 		}
 		Player victim = (Player) en;
 		Player damager = (Player) dmg;
 
-		if((MobaTeam.Orange.hasPlayer(victim) && MobaTeam.Orange.hasPlayer(damager)) || (MobaTeam.Blue.hasPlayer(victim) && MobaTeam.Blue.hasPlayer(damager))) {
+		if(MobaTeam.getTeam(damager) == MobaTeam.getTeam(victim)) {
 			event.setCancelled(true);
 			dmg.sendMessage("You can't hit your teammate");
 		}

@@ -17,10 +17,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.paperbenni.setup.moba.MobaMinion;
 import com.paperbenni.setup.moba.MobaPlayer;
 import com.paperbenni.setup.moba.MobaTeam;
+import com.paperbenni.setup.moba.MobaTeam.Orange;
 import com.paperbenni.setup.mobs.Minion;
-import com.paperbenni.setup.mobs.MobaMinion;
 import com.paperbenni.setup.positions.MobaPosition;
 
 public class PlayerInteract implements Listener {
@@ -84,19 +85,26 @@ public class PlayerInteract implements Listener {
 			if (event.getClickedBlock().getType() == Material.IRON_BLOCK) {
 				if (player.getInventory().getItemInMainHand().getType() == Material.SLIME_BALL) {
 
-					Location l = player.getLocation();
-					l.setYaw(90);
-					l.setPitch(0);//weiter
-					Entity e = l.getWorld().spawnEntity(l, EntityType.IRON_GOLEM);
-					Minion m = new Minion();
-					m.setLevel(1);
-					m.setTeam(MobaTeam.getTeam(player));
-					player.sendMessage(ChatColor.BLUE + "Minion Level " + m.getLevel());
-					MobaMinion.registerMinion(e, m);
-
 					if (MobaTeam.getTeam(player) == MobaPlayer.ORANGE) {
-						MobaTeam.Orange.addMinionPoints(-1);
-						player.sendMessage(ChatColor.RED + "Minion points: " + MobaTeam.Orange.getMinionPoints());//weiter
+
+						if (Orange.getMinionPoints() <= 100) {
+							player.sendMessage("Your team doesn't have enough minion points!");
+							return;
+						}
+						Location l = player.getLocation();
+						l.setX(MobaPosition.OrangeMinionX);
+						l.setYaw(90);
+						l.setPitch(0);
+						Entity e = l.getWorld().spawnEntity(l, EntityType.SLIME);
+						Minion m = new Minion();
+						m.setLevel(1);
+						m.setTeam(MobaTeam.getTeam(player));
+						m.setEntity(e);
+						player.sendMessage(ChatColor.BLUE + "Minion Level " + m.getLevel());
+						m.setLocation(l);
+						MobaMinion.registerMinion(e, m);
+						Orange.addMinionPoints(-100);
+						player.sendMessage(ChatColor.RED + "Minion points: " + MobaTeam.Orange.getMinionPoints());
 					}
 
 				}

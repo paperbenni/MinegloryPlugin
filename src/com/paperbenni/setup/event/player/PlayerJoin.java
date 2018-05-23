@@ -1,9 +1,14 @@
 package com.paperbenni.setup.event.player;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.paperbenni.setup.Setup;
 import com.paperbenni.setup.moba.MobaPlayer;
@@ -26,6 +31,15 @@ public class PlayerJoin implements Listener {
 		 Player player = event.getPlayer();
 		 player.sendMessage(welcomeMessage);
 		 player.teleport(MobaPosition.SpawnBall);
-		 MobaPlayer.addGold(player, 100000);
+		 MobaPlayer.setGold(player, 1000);
+		 
+		 Bukkit.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + "has joined the game!");
+		 ScoreboardManager manager = Bukkit.getScoreboardManager();
+		 Scoreboard score = manager.getNewScoreboard();
+		 
+		 Objective o = score.registerNewObjective("Mineglory", "");
+		 o.setDisplaySlot(DisplaySlot.SIDEBAR);
+		 o.setDisplayName(ChatColor.AQUA + "Mineglory");
+		 player.setScoreboard(score);
 	}
 }
